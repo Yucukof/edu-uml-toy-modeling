@@ -1,0 +1,606 @@
+\chapter*{Spécifications}
+\addcontentsline{toc}{chapter}{Spécifications}  
+\renewcommand*{\theHsection}{chY.\the\value{section}}
+\setcounter{chapter}{1}
+\renewcommand{\thesection}{\arabic{section}}
+
+\section{Description du jeu}
+
+\subsection{Game}
+Le \textbf{jeu} est la raison principal de ce laboratoire : il s'agit d'une construction complexe permettant à des êtres humains de se divertir en s'opposant de manière ludique.
+    
+\subsection{Series}
+La \textbf{série} est le coeur même du jeu : c'est au cours de séries que les joueurs peuvent effectivement \textit{jouer} les uns avec les autres.
+    \begin{itemize}
+        \item Une série possède un identifiant unique..
+        \item Une série est composée d'un ensemble de rencontres.
+            \begin{itemize}
+                \item Une série de rencontres comprend au moins une rencontre.
+                \item Le nombre de rencontres au sein d'une série est impair.
+                \item Les rencontres sont jouées en ordre successif.
+                \item Une seule rencontre peut être jouée à la fois.
+                \item Chaque rencontre ne peut être jouée qu'une seule fois.
+            \end{itemize} 
+        \item Une série est gagnée par le joueur qui a remporté le plus de rencontres durant la série. 
+            \begin{tcolorbox}
+                Il se peut que la série ne compte pas de gagnant.
+            \end{tcolorbox}
+        \item Une série peut se jouer selon deux modes :
+            \begin{itemize}
+                \item DUEL :        mode duel (2 joueurs uniquement)
+                \item MULTIPLAYER : mode multi-joueurs (3+ joueurs)
+            \end{itemize}
+        \item Une série est jouée selon deux formules :
+            \begin{itemize}
+                \item REALTIME :   soit en formule temps-réel (également appelée \textit{interactive}).
+                \item TURN-BASED : soit en formule tour-par-tour (également appelée \textit{éducative}).
+            \end{itemize}
+        \item En formule éducative, les joueurs ne jouent pas directement, mais choisissent des stratégies.
+        \item Pour initier une nouvelle série, les joueurs humains doivent :
+            \begin{itemize}
+                \item Choisir le mode de jeu.
+                \item Choisir la formule de jeu et la limite de temps.\newline
+                      Selon le type d'adversaire, une rencontre peut ou ne peut pas être chronométrée.
+                    \begin{itemize}
+                        \item Contre un ordinateur : FREE est autorisé.
+                        \item Contre un ou plusieurs joueurs humains : FREE est interdit.
+                    \end{itemize}
+                \item S'ils jouent contre un ordinateur, choisir un niveau de difficulté.
+                \item Choisir le nombre de rencontres que comptera la série.
+                \item Choisir l'avatar qui le représentera au cours de cette partie
+            \end{itemize}
+    \end{itemize}
+    
+\subsection{Match}
+La \textbf{rencontre} est le composant d'une série au cours de laquelle les joueurs s'affrontent effectivement par le biais de leurs avatars.
+    \begin{itemize}
+        \item Un rencontre est identifié de manière unique.
+        \item Toute rencontre se déroule sur un plateau propre.
+        \item Une rencontre ne peut pas être rejouée.
+        \item Un rencontre voit se rencontrer les avatars des joueurs.
+    
+        \item Un match peut être libre ou limité:
+            \begin{itemize}
+                \item FREE : sans limite
+                \item TIMER/TURN : soit par chronomètre, soit par compte-tours, selon la formule de jeu choisie.
+            \end{itemize}
+    
+        \item Selon le type d'adversaire, une rencontre peut ou ne peut pas être chronométrée.
+            \begin{itemize}
+                \item Contre un ordinateur : FREE est autorisé.
+                \item Contre un ou plusieurs joueurs humains : FREE est interdit.
+            \end{itemize}
+        
+        \item La limite d'une rencontre ainsi choisie s'exprime soit:
+            \begin{itemize}
+                \item en temps restant.
+                \item en tours restants.
+            \end{itemize}
+    
+        \item Une rencontre peut être remporté de deux manières :
+            \begin{itemize}
+                \item LAST-MAN-STANDING : seul un dernier avatar est encore en vie.
+                \item FOUND-GRAIL : un avatar a trouvé le Graal.
+            \end{itemize}
+        \begin{tcolorbox}
+            Une rencontre peut ne pas compter de vainqueur, si le temps restant est écoulé/le nombre de tours autorisés dépassés, ou si les deux derniers avatars meurent au même moment.
+        \end{tcolorbox}
+        
+        \item Au cours d'une rencontre, les avatars suivent les directives de stratégies choisies pas les joueurs.
+    \end{itemize}
+    
+\subsection{Player}
+Le \textbf{joueur} est un acteur principal dans le jeu : c'est lui qui détermine et participe aux séries de rencontres, donne des instructions aux avatars et remportent les victoires.
+    \begin{itemize}
+        \item Un joueur possède un nom unique qui l'identifie parmi tous les joueurs.
+        \item Un joueur est soit un être humain, soit un ordinateur.
+        \item Un ordinateur a trois niveaux de difficulté possibles
+            \begin{itemize}
+                \item BEGINNER
+                \item NORMAL
+                \item EXPERT
+            \end{itemize}
+        \item Un joueur possède des apparences, dont au moins une apparence par défaut.
+        \item Un joueur possède au moins un avatar et peut en avoir davantage.
+        \item Un joueur participe à des séries pour jouer.    
+        \item Un joueur possède un historique des séries et rencontres jouées et remportées, ainsi que des opposants dans ces parties.
+        \item Au cours d'une rencontre, les joueurs voient :
+            \begin{itemize}
+                \item Le plateau de jeu, avec 
+                    \begin{itemize}
+                        \item Les limites du plateau.
+                        \item Le brouillard de guerre.
+                        \item La tuile sur laquelle leur avatar est positionné.
+                        \item Un ensemble de tuiles du plateau dans un périmètre autour de l'avatar, défini par la ligne de mire de celui-ci
+                        \item Leur avatar.
+                    \end{itemize}
+                \item Une barre de menu avec
+                    \begin{itemize}
+                        \item Les caractéristiques de cet avatar.
+                        \item L'inventaire courant de cet avatar.
+                    \end{itemize}
+            \end{itemize}
+    \end{itemize}
+    
+\subsection{Avatar}
+L'\textbf{avatar} est le composant qui s'affronte effectivement sur les plateaux de jeu.
+    \begin{itemize}
+        \item Un avatar est possédé par un et un seul joueur.
+        \item Un avatar possède un identifiant unique parmi les avatars d'un joueur.
+        \item Un avatar porte une et une seule apparence (qui peut être changée).
+        \item Un avatar se trouve au maximum sur une et une seule tuile.
+        \item L'avatar possède un inventaire.
+        \item Un avatar possède différentes caractéristiques : 
+        \begin{itemize}
+            \item Un potentiel de vie, exprimé en points.
+            \item Des niveaux d'attaque et de défense, exprimés en ratios.
+            \item Une portée de vue
+        \end{itemize}
+        \item Un avatar dont les points de vies sont à zéro meurt. Il perd la rencontre en cours et est retiré du plateau.
+        \item Un avatar possède un inventaire rassemblant les objets collectés par l'avatar au cours des différentes rencontres.
+        \item Un avatar peut utiliser différents objets pour s'aider au cours d'une rencontre.
+        \item Un avatar est la cible des attaques des zombies à proximité.
+        \item Un avatar suit les directives d'une stratégie en mode tour-par-tour.
+        \item Un avatar est positionné sur 0 ou 1 tuile (suivant qu'il est utilisé dans une partie ou non).
+        \item Un avatar possède des coordonnées absolues, correspondant à la tuile sur laquelle il se trouve.
+    \end{itemize}
+    
+\begin{tcolorbox}
+    La description du jeu ne précise pas explicitement ce qu'il se passe lorsqu'un avatar meure au cours d'une rencontre en milieu de série :
+    \begin{itemize}
+        \item Est-ce que le joueur doit choisir un remplaçant pour continuer la série ?
+        \item Est-ce que le joueur perd immédiatement la série, sans jouer les rencontres restantes\:?
+        \item Est-ce que l'avatar est \textit{ressuscité} avec des caractéristiques par défaut et un inventaire donné ?
+    \end{itemize}
+\end{tcolorbox}
+    
+\subsection{Skin}
+L'\textbf{apparence} est une représentation graphique d'un avatar.
+    \begin{itemize}
+        \item Une apparence est soit libre, soit payant (\textit{premium}).
+        \item Une apparence est disponible mais pas forcément encore acquise par un des joueurs.
+        \item Une apparence peut être porté par n'importe quel avatar, pour autant que son joueur-propriétaire l'ait acheté préalablement.
+        \item Il existe au moins une apparence non-payante.
+    \end{itemize}
+
+\subsection{Inventory}
+L'\textbf{inventaire} représente un ensemble d'objets appartenant à un même avatar.
+    \begin{itemize}
+        \item Au cours des rencontres, les avatars accumulent des objets, qu'ils stockent dans leur inventaire.
+        \item À la fin d'une rencontre et d'une série, certains objets sont conservés, d'autres sont défaussés.
+        \item L'inventaire d'un avatar peut contenir
+            \begin{itemize}
+                \item Un stock de munitions/boissons.
+                \item Des objets lui conférant de nouvelles aptitudes permanentes.
+                \item Des objets à activer qui confèrent des aptitudes temporaires.
+            \end{itemize}
+    \end{itemize}
+
+\subsection{Board}
+Le \textbf{plateau} de jeu est l'endroit sur lequel s'affrontent les joueurs au cours d'une rencontre.
+    \begin{itemize}
+        \item Au cours de la rencontre, les avatars des joueurs se déplacent sur et interagissent avec les éléments du plateau.
+        \item Un plateau est de dimension figée et carrée.
+        \item Un plateau est découpé selon une grille bi-dimensionnelle.
+        \item Un plateau est composé de tuiles, en nombre spécifié par ses dimensions.
+        \item Les tuiles du plateau sont posées les unes à côtés des autres de manière ordonné et bidimensionnelle.
+        \item Il n'existe pas de "trou" au sein d'un plateau.
+        \item Un plateau est habité par des personnages qui sont soit les avatars des joueurs, soit des zombies contrôlés par l'ordinateur.
+        \item Un plateau est toujours délimité par une rangée d'obstacles infranchissables sur son contour.
+        \item Au début d'une rencontre, le plateau de jeu est entièrement révélé aux joueurs pour leur permettre d'établir une stratégie. Le plateau est ensuite recouvert d'un brouillard de guerre, permettant aux avatars de voir les tuiles dans un périmètre défini par leur ligne de mire.
+    \end{itemize}
+    
+\subsection{Tile}
+La \textbf{tuile} est le composant principal, atomique, du plateau de jeu.
+\begin{itemize}
+    \item Une tuile possède des coordonnées absolues qui renseignent sa position sur le plateau.
+    \item Une tuile peut être positionnée à côté de 0 à 4 tuiles adjacentes, selon les quatre directions cardinales.
+    \item Une tuile peut de manière facultative contenir différents éléments :
+        \begin{itemize}
+            \item Un personnage (avatar ou zombie).
+            \item Un obstacle.
+            \item Un objet.
+        \end{itemize}
+      \item Une tuile ne peut avoir au maximum qu'un seul personnage présent à la fois.
+      \item Une tuile ne peut avoir au maximum qu'un seul obstacle présent à la fois.
+      \item Une tuile ne peut avoir au maximum qu'un seul objet présent à la fois.
+      \item Une tuile ne peut contenir simultanément un obstacle et un objet.
+    \end{itemize}
+
+\subsection{Zombie}
+Le \textbf{zombie} est le personnage antagoniste aux avatars.
+    \begin{itemize}
+        \item Un zombie se trouve nécessairement sur une tuile sur un plateau donné.
+        \item Un zombie erre dans le monde sans but, jusqu'à apercevoir un avatar.
+        \item La distance à partir de laquelle un zombie aperçoit un avatar est fonction de son ratio d'attaque.
+        \item Lorsqu'il aperçoit un avatar, le zombie se lance à sa poursuite : il essaye de s'en rapprocher, puis d'effectuer une attaque au corps-à-corps.
+        \item Un zombie effectue une attaque au corps-à-corps lorsqu'il frappe une tuile adjacente dans la direction observée par le zombie.
+        \item Un zombie n'attaque pas les autres zombies.
+        \item Un zombie ne collecte pas les objets présents sur le plateau.
+        \item Un zombie est présent sur une et une seule tuile.
+        \item Un zombie a, comme les avatars, un certain nombre de caractéristiques.
+        \begin{itemize}
+            \item Un potentiel de vie, exprimé en points
+            \item Un niveau d'attaque, exprimé sous forme de ratio.
+            \begin{tcolorbox}
+                Un zombie n'a pas de niveau de défense, contrairement aux avatars.
+            \end{tcolorbox}
+        \end{itemize}
+        \item Un zombie dont le potentiel de vie est à zéro meurt et disparaît du plateau.
+        \item Un zombie observe une direction parmi les directions cardinales.
+        \item Un zombie adapte sa direction à la suite de chaque mouvement : elle prend la valeur de la direction du mouvement effectué.
+      \end{itemize}
+      
+\subsection{Obstacle}
+Les \textbf{obstacles} sont des éléments de décor qui opposent une résistance aux personnages.
+\begin{itemize}
+    \item Un obstacle se trouve nécessairement sur une tuile sur un plateau donné.
+    \item Un obstacle est parfois franchissable, parfois destructible.
+        \begin{itemize}
+            \item Un obstacle est \textit{franchissable} si un avatar peut le franchir sous certaines conditions :
+                \begin{itemize}
+                    \item par la possession d'un objet spécifique.
+                    \item au prix d'un nombre défini de points de vie.
+                \end{itemize}
+            \item Un obstacle est \textit{destructible} si un avatar peut le détruire au moyen d'une attaque directe ou indirecte.
+                \begin{itemize}
+                    \item Un obstacle qui est détruit disparaît de la case et du plateau de jeu.
+                \end{itemize}
+        \end{itemize}
+        
+    \item Les obstacles destructibles sont :
+        \begin{itemize}
+          \item THORN : les ronces
+          \item BUSH :  les buissons
+          \item TRUNK : les troncs d'arbre
+          \item SKULL : les têtes de mort
+        \end{itemize}
+    \item Les obstacles indestructibles sont répartis en deux catégories :
+        \begin{itemize}
+            \item Les obstacles permanents.
+                \begin{itemize}
+                    \item WALL : mur
+                    \item TREE : arbre
+                    \item ROCK : menhir
+                \end{itemize}
+            \item Les obstacles de zone.
+                \begin{itemize}
+                    \item FIRE : zone de feu
+                    \item ICE : zone de glace
+                    \item WATER : zone d'eau
+                \end{itemize}
+        \end{itemize}
+    \item Les conditions pour qu'un avatar puisse franchir un obstacle sont les suivantes :
+        \begin{itemize}
+            \item l'avatar possède la cape de mage et 
+                \begin{itemize}
+                    \item L'obstacle est une zone.
+                    \item L'obstacle est un obstacle permanent ou destructible et la cape de mage possède des points d'utilisation restants.
+                \end{itemize}
+            \item L'obstacle est une \textit{zone de feu} et
+                \begin{itemize}
+                    \item l'avatar possède une cape de mage et/ou des bottes de feu.
+                    \item autrement, l'avatar perd un nombre défini de points de vie.\newline Le nombre de points de vie perdu est fonction de la durée de séjour sur la zone de feu : 1 point par tour ou un nombre indéfini par minute.
+                \end{itemize}
+            
+            \item L'obstacle est une \textit{zone d'eau} et l'avatar possède la cape de mage et/ou un kit de plongée
+            \item L'obstacle est une \textit{zone de glace} et l'avatar possède la cape de mage et/ou des bottes à crampons.
+        \end{itemize}
+    \end{itemize}
+
+\subsection{Item}
+Les \textbf{objets} sont des éléments disséminés sur le plateau et pouvant être collectés par les joueurs pour leur conférer un avantage/une aptitude temporaire ou permanent.
+\begin{itemize}
+    \item Il existe plusieurs types d'objets :
+        \begin{itemize}
+            \item GRAIL : Graal.
+            \item CONSUMABLE : consommables.
+            \item BOOSTER : améliorants.
+            \item CAPACITER : capaciteurs.
+            \item BUFF : super-pouvoirs.
+            \item POINTER : pointeurs.
+        \end{itemize}
+
+        \item Le \textit{Graal} est l'un des deux objectifs pour remporter une rencontre. 
+            \begin{itemize}
+                \item Il existe nécessairement un et un seul Graal sur le plateau.
+                \item Il est activé automatiquement lorsque ramassé.
+                \item Il ne rentre jamais dans l'inventaire.
+            \end{itemize}
+        
+        \item Les \textit{consommables} permettent au joueur de récupérer des points de vie ou de lancer des projectiles.
+        \begin{itemize}
+            \item Les consommables sont de trois types :
+                \begin{itemize}
+                    \item FOOD : Nourriture
+                    \item DRINK : Boisson
+                    \item AMMO : Munitions
+                \end{itemize}
+            \item La nourriture et les boissons permettent de restaurer les points de vie de l'avatar.
+            \item Les munitions permettent à l'avatar de lancer un projectile.
+            \item Un consommable doit être activé pour réaliser son objet.
+            \item Lorsqu'un consommable est activé, il est défaussé de l'inventaire.
+            \item Les consommables non-utilisés sont permanents : ils restent dans l'inventaire de l'avatar après la fin de la rencontre et de la série.
+        \end{itemize}
+
+        \item Les \textit{améliorants} augmentent de manière permanente les caractéristiques de l'avatar qui les collecte.
+            \begin{itemize}
+                \item Les améliorants sont de deux types :
+                    \begin{itemize}
+                        \item ATTACK :  Boosteur d'attaque
+                        \item DEFENSE : Boosteur de défense
+                    \end{itemize}
+                \item Les améliorants sont automatiquement activés lorsque ramassés par l'avatar.
+                \item Les améliorants sont immédiatement défaussés après activation.
+            \end{itemize}
+            
+        \item Les \textit{capaciteurs} confèrent une nouvelle aptitude permanente à l'avatar qui les collecte. 
+            \begin{itemize}
+                \item Les capaciteurs sont de trois types :
+                    \begin{itemize}
+                        \item FIREBOOT: bottes de feu.
+                        \item ICEBOOT: bottes à crampons.
+                        \item DIVEMASK: kit de plongée.
+                    \end{itemize}
+                \item Les bottes de feu permettent de franchir une zone de feu sans perdre de points de vie.
+                \item Les bottes à crampons permettent de franchir une zone de glace.
+                \item Le kit de plongée permet de franchir une zone d'eau.
+                \item Les capaciteurs sont automatiquement activés lorsque ramassés par l'avatar.
+                \item Les capaciteurs sont permanents : ils restent dans l'inventaire de l'avatar après la fin de la rencontre et de la série.
+            \end{itemize}
+            
+        \item Les \textit{super-pouvoirs} donnent à l'avatar une capacité temporaire puissante.
+            \begin{itemize}
+                \item Les super-pouvoirs sont de deux types :
+                    \begin{itemize}
+                        \item ARMOR : cotte de mailles
+                        \item CAPE : cape de mage
+                    \end{itemize}
+                \item La cotte de mailles rend l'avatar qui la porte insensibles aux attaques des autres avatars et zombies.
+                \item La cape de mage permet à l'avatar qui la porte de traverser zones et obstacles sans dommages.
+                \item La cape de mage ne permet de traverser des obstacles infranchissables que trois fois. Un compteur sous forme de points d'utilisation permet de mesurer combien d'utilisations restantes subsistent.
+                \item Un super-pouvoir doit être activé pour réaliser son objet.
+                \item Un super-pouvoir n'est actif que pour une durée limitée, exprimée en termes de temps ou nombre de tours restants, selon la formule de jeu retenue :
+                \begin{itemize}
+                    \item TURN-BASED: la durée correspond à [$\frac{1}{10}^e$ des points de vie de l'avatar].
+                    \item REALTIME:   la durée correspond à $1$ minute.
+                \end{itemize}
+                \item Lorsqu'un super-pouvoir est activé, un compteur est enclenché et réduit progressivement la durée restante d'activité du super-pouvoir.
+                \item Lorsqu'un super-pouvoir n'a plus de durée d'activité restante, il est défaussé de l'inventaire et l'avatar perd son pouvoir.
+                \item Les super-pouvoirs non-utilisés sont permanents : ils restent dans l'inventaire de l'avatar après la fin de la rencontre et de la série.
+            \end{itemize}
+            
+        \item Les \textit{pointeurs} aident l'avatar (et le joueur) à s'orienter vers le plateau, en indiquant la direction à vol d'oiseau vers le(s) autre(s) avatar(s) ou le Graal.
+            \begin{itemize}
+                \item Les pointeurs sont de deux types :
+                    \begin{itemize}
+                        \item MAP : carte.
+                        \item RADAR : radar.
+                    \end{itemize}
+                \item La carte indique la direction à vol d'oiseau vers le Graal du plateau.
+                \item La carte n'a pas de durée limitée.
+                \item La carte est automatiquement activée lorsqu'elle est ramassée.
+                \item La carte n'est pas permanente : elle est défaussée à la fin de la rencontre.
+                \item Le radar indique la direction à vol d'oiseau vers le/les adversaire(s).
+                \item Le radar doit être activé par l'avatar pour fonctionner.
+                \item Le radar a une durée limitée, exprimée en terme de temps/tours restants.
+                \item A chaque fois qu'un nouveau radar est ramassé, 
+                    \begin{itemize}
+                        \item si l'avatar ne possède pas encore de radar, il est simplement ajouté à l'inventaire.
+                        \item si le joueur possède déjà un radar, celui-ci voit son temps restant d'utilisation doublé (qu'il soit actif ou non). Le nouveau radar est immédiatement défaussé.
+                    \end{itemize}
+                \item Les radars non-utilisés sont permanents : ils restent dans l'inventaire de l'avatar après la fin de la rencontre et de la série.
+            \end{itemize}
+        
+        \item Un objet peut être ramassé par l'avatar présent sur la même tuile.
+        \item Un objet ramassé disparaît du plateau et apparaît dans l'inventaire du joueur selon les conditions décrites ci-dessus.
+    \end{itemize}
+
+\section{Description des stratégies}
+
+\subsection{Strategy}
+Les \textbf{stragégies} sont des mécanismes de jeu automatique permettant au joueur de faire des rencontres en tour-par-tour.
+    \begin{itemize}
+        \item Une stratégie permet aux avatars d'effectuer des actions et des déplacements sans input direct des joueurs.
+        \item Une stratégie est composée :
+            \begin{itemize}
+                \item d'objectifs ;
+                \item de variables globales ;
+                \item de modules.
+            \end{itemize}
+        \item Une stratégie comporte toujours deux objectifs :
+            \begin{itemize}
+                \item Un objectif de long-terme, à poursuivre en toutes circonstances.
+                \item Un objectif de court-terme, à réaliser de manière opportuniste.
+            \end{itemize}
+        \item L'ordre de réalisation de ces objectifs est implicite :
+        \begin{itemize}
+            \item L'objectif de court-terme prime sur l'objectif de long-terme.
+            \item Un objectif est réalisable tant qu'une de ses directives est activable.
+            \item Un objectif néant est nécessairement précédé par l'autre objectif.
+            \item Il ne peut pas y avoir deux objectifs néant au sein d'une stratégie.
+        \end{itemize}
+        \item Tous les modules au sein d'une stratégie sont nommés différemment.
+        \item Toutes les variables globales au sein d'une stratégie sont nommées différemment.
+    \end{itemize}
+
+\subsection{Objective}
+Les \textbf{objectifs} permettent de donner une direction et une liste d'actions possibles à des avatars pour remporter une rencontre.
+    \begin{itemize}
+        \item Un objectif est caractérisé par une cible :
+            \begin{itemize}
+                \item \textbf{Néant} (\textit{Random}) - déplacements aléatoires.
+                \item \textbf{AllerVers} (\textit{Goto}) - déplacements en direction d'une tuile.
+                \item \textbf{Contourner} (\textit{Avoid}) - déplacement en direction d'une tuile avec contournement.
+                \item \textbf{Éviter} (\textit{Evade}) - déplacement d'éloignement d'un personnage ou d'une tuile.
+                \item \textbf{CollecterMax} (\textit{Collect}) - priorisation du ramassage d'un certain type d'objet.
+                \item \textbf{Combattre} (\textit{Attack}) - attaque de personnages avoisinants.
+            \end{itemize}
+        \item Les objectifs \textit{Néant} et \textit{Combattre} n'acceptent aucun paramètre.
+        \item L'objectif \textit{AllerVers} prend en paramètre une tuile de destination.
+        \item L'objectif \textit{Contourner} prend en paramètre une tuile de destination, ainsi qu'un ensemble de consignes d'évitements constituées d'un couple 
+            \begin{itemize}
+                \item élément à éviter et 
+                \item direction à emprunter pour l'évitement.
+            \end{itemize}
+        \item L'objectif \textit{Éviter} prend en paramètre un personnage ou une tuile dont s'éloigner.
+        \item L'objectif \textit{CollecterMax} prend en paramètre un type d'objet à rechercher et ramasser.
+        \item Un objectif peut uniquement être changé au moyen d'une action Changer.
+        \item Un objectif définit un ensemble de directives.
+        \item Un objectif a nécessairement une directive par défaut. La priorité de cette directive a la valeur zéro.
+        \item Lorsque plusieurs directives sont activées simultanément, seule celle dont la valeur de priorité est la plus proche de 0 est appliquée.
+        \item Les priorités des directives d'un objectif sont toutes différentes.
+        \item La directive par défaut n'a pas de pré-requis d'exécution.
+    \end{itemize}
+    
+\subsection{Rule}
+Les \textbf{directives} décrivent les actions à entreprendre pour la réalisation d'un objectif et les conditions dans lesquelles elles s'appliquent.
+\begin{itemize}
+    \item Il existe deux catégories de directives :
+        \begin{itemize}
+            \item les directives normales.
+            \item les méta-directives.
+        \end{itemize}
+    \item Une directive est composée de trois éléments
+        \begin{itemize}
+            \item une priorité explicite (\textit{priority}.
+            \item un déclencheur (\textit{trigger})
+            \item une réaction (\textit{reaction})
+        \end{itemize}
+    \item La priorité indique le niveau de préséance d'une directive parmi les directives d'un objectif. 
+        \begin{itemize}
+            \item La priorité est un entier positif.
+            \item Le niveau de priorité d'une directive est inversement proportionnel à sa valeur.
+            \item La règle par défaut d'un objectif a la priorité zéro.
+        \end{itemize}
+    \item Le déclencheur est une expression booléenne qui, si elle est évaluée à vraie, signifie que la directive peut être appliquée.
+    \item La réaction est un ensemble d'instructions élémentaires et de paramètres permettant la réalisation de la directive.
+    \begin{itemize}
+    \item Une réaction est composée de :
+        \begin{itemize}
+            \item des variables ;
+            \item une séquence d'instructions.
+        \end{itemize}
+        \item Dans la séquence d'instructions, il peut y avoir plusieurs actions.
+        \item Dans la séquence d'instructions, il ne peut y avoir qu'une seul action de type \textit{mouvement}.
+        \item Seule une méta-directive peut inclure une action de type \textit{Changer}.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Action}
+Les \textbf{actions} décrivent les interactions qu'un joueur peut entretenir avec le jeu et son avatar.
+\begin{itemize}
+    \item Il existe différent catégories d'action :
+    \begin{itemize}
+        \item \textbf{Mouvement} : action permettant au joueur de déplacer son personnage.
+        \item \textbf{Activité} : action permettant au joueur d'interagir avec l'environnement direct du personnage.
+        \item \textbf{Méta} : action permettant au joueur d'influer sur le comportement de son personnage.
+    \end{itemize}
+    \item L'action de mouvement est \textit{SeDéplacer} et consiste à modifier l'emplacement du personnage vers une tuile adjacente (en vérifiant les conditions de franchissement).
+    \item Les actions de type \textit{activité} sont de cinq types :
+    \begin{itemize}
+        \item \textbf{Frapper} (\textit{slash})
+        \item \textbf{Tirer} (\textit{fire})
+        \item \textbf{Revêtir} (\textit{wear})
+        \item \textbf{UtiliserItem} (\textit{use})
+        \item \textbf{ConsulterRadar} (\textit{read})
+    \end{itemize}
+    \item L'action de frapper consiste 
+\end{itemize}
+
+\subsection{Module}
+Les \textbf{modules} sont les éléments déclaratifs de la programmation et renseignent sur les calculs pouvant être réalisés et leur conditions d'exécution.
+\begin{itemize}
+    \item Un module est composé
+        \begin{itemize}
+            \item de variables locales ;
+            \item de paramètres optionnels en entrée ;
+            \item d'un retour facultatif ;
+            \item d'un corps.
+        \end{itemize}
+    \item Un module possède un nom.
+    \item Un module peut utiliser les variables globales de la stratégie à laquelle il appartient.
+    \item Toutes les paramètres au sein d'un module sont nommées différemment.
+    \item Toutes les variables au sein d'un module sont nommées différemment.
+    \item Une variable locale ne peut avoir le même nom qu'une variable globale définie par la stratégie à laquelle le module appartient.
+\end{itemize}
+
+\subsection{Types}
+Les \textbf{types} sont les éléments informatifs de la programmation et renseignent sur le format des données manipulées.
+\begin{itemize}
+    \item Il existe des types \textit{"finis"}, prédéfinis et figés.
+    \item Il existe des types \textit{"extensibles"}, qui peuvent être ajoutés selon les besoins.
+    \item Il existe différentes natures, ou formats : 
+        \begin{itemize}
+            \item Les types primitifs
+            \item Les énumérations
+            \item Les tableaux
+            \item Les enregistrements
+        \end{itemize}
+    
+    \item Les types \textit{primitifs} sont au nombre de 4 : string, integer, float, boolean.
+    
+    \item Les \textit{énumérations} établissent un ensemble fini de valeurs auto-expressives.
+        \begin{itemize}
+            \item Une énumération établit au moins une valeur.
+            \item Les valeurs établies par une énumération porte un nom.
+            \item Tous les noms de valeur d'une énumération doivent être différents.
+        \end{itemize}
+        
+    \item Les \textit{tableaux} sont des séquences de valeurs, de longueur finie et organisées de manière multi-dimensionnelle.
+        \begin{itemize}
+            \item Un tableau possède un type (qui peut être un autre tableau).
+            \item Un tableau définit une séquence de valeurs.
+            \item Toutes les valeurs d'un tableau ont le même type.
+            \item Un tableau possède au moins une dimension.
+            \item La dimension d'un tableau doit être strictement positive.
+        \end{itemize}
+        
+    \item Les \textit{enregistrements} sont des ensembles non-ordonnés et finis de valeurs de type variable.
+        \begin{itemize}
+            \item Un enregistrement déclare un ensemble de champs avec un certain type et un nom.
+            \item Un enregistrement doit avoir au moins un champ.
+            \item Les champs d'un enregistrement peuvent être de différents types.
+            \item Les champs déclarés au sein un enregistrement possèdent un nom unique entre eux.
+        \end{itemize}
+    \item Les types possèdent un nom unique permettant de les identifier.
+\end{itemize}
+
+
+\subsection{Expression}
+Les \textbf{expressions} sont l'élément de représentation textuelle des données dans le système.
+\begin{itemize}
+    \item Un expression peut être de six types :
+        \begin{itemize}
+            \item \textbf{Littéral} - un objet auto-exprimé.
+            \item \textbf{Symbole} - un élément de la mémoire pouvant être assigné (LHS) ou récupéré (RHS).
+            \item \textbf{Unaire} - Un opérateur unaire lié à un expression.
+            \item \textbf{Binaire} - Un opérateur binaire lié à deux expressions.
+            \item \textbf{Parenthésée} - Un groupe d'expressions
+            \item \textbf{Appel de module} - un appel à un module prenant (ou non) des paramètres et produisant (ou non) un retour.
+        \end{itemize}
+    \item Un \textit{littéral} est une expression comprenant uniquement un élément auto-suffisant, c'est-à-dire un élément de type primitif ou une énumération.
+    \item Un \textit{symbole} est une expression référençant un objet en mémoire pouvant être plus ou moins complexe.
+    \item Une expression \textit{unaire} est une expression composée d'un opérateur unaire et d'un opérande. Cet opérande est lui-même une expression.
+    \item Une expression \textit{binaire} est une expression composée d'un opérateur binaire et de deux opérandes : un à gauche et un à droite. Ces opérandes sont eux-mêmes des expressions.
+    \item Une expression \textit{parenthésée} est une expression contenant une sous-expression entre deux marqueurs.
+\end{itemize}
+
+\subsection{Instruction}
+Les \textbf{instructions} sont l'élément effectif de programmation qui permet de manipuler effectivement les données.
+\begin{itemize}
+    \item Une instruction peut être de cinq différents types :
+        \begin{itemize}
+            \item \textbf{Saut} (\textit{Skip}) - une instruction sans effet.
+            \item \textbf{Conditionnelle} (\textit{Selection}) - une instruction de branchement, composée d'une garde et de 1 ou 2 branches (\textit{if...then...else...}).
+            \item \textbf{Itération} (\textit{Iteration}) - une instruction de répétition, composée d'une garde de sortie et d'un corps d'instruction.
+            \item \textbf{Séquence} (\textit{sequence}) - une instruction composée d'une suite d'instructions.
+            \item \textbf{Affectation} (\textit{Assignment}) - une instruction composée d'une partie gauche et d'une partie droite et consistant à assigner la valeur de la partie droite dans la partie gauche.
+            \item \textbf{Action} (\textit{Action}) - une instruction réalisant une action.
+        \end{itemize}
+    \item Elle permet
+        \begin{itemize}
+            \item de manipuler les données et
+            \item d'effectuer des opérations : mouvements, interactions.
+        \end{itemize}
+\end{itemize}
